@@ -49,4 +49,19 @@ const remove = async (req, res) => {
   }
 };
 
-export default { getAll, getOne, create, update, remove };
+const getPublic = async (req, res) => {
+  try {
+    const site = await Site.findById(req.params.id).select(
+      'customer siteAddress equipType vendor hostId serial bmsVersion maintExp ' +
+      'gateway dnsServer lanOneIp lanOneSub lanTwoIp lanTwoSub ' +
+      'platformPort platformTlsPort foxPort foxTlsPort httpPort httpsPort ' +
+      'platformUser platformPass stationUser stationPass'
+    );
+    if (!site) return res.status(404).json('Site not found');
+    return res.json(site);
+  } catch (err) {
+    return res.status(500).json('Server error');
+  }
+};
+
+export default { getAll, getOne, create, update, remove, getPublic };

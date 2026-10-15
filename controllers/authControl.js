@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const login = async (req, res) => {
-  const { email, pass } = req.body;
+  const { email, pass, rememberMe } = req.body;
 
   try {
     const user = await User.findOne({ email });
@@ -16,7 +16,7 @@ const login = async (req, res) => {
       return res.status(400).json({ email, pass, msg: 'Email or password invalid' });
 
     const accessToken = user.genAccessToken();
-    const refreshToken = user.genRefreshToken();
+    const refreshToken = user.genRefreshToken(!!rememberMe);
 
     const { password, ...otherInfo } = user._doc;
 

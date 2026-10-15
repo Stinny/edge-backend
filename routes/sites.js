@@ -4,6 +4,7 @@ import isTokenValid from '../middleware/isTokenValid.js';
 
 const router = Router();
 
+router.get('/public/:id', siteControl.getPublic);
 router.get('/', isTokenValid, siteControl.getAll);
 router.get('/:id', isTokenValid, siteControl.getOne);
 router.post('/', isTokenValid, siteControl.create);

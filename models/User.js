@@ -17,8 +17,8 @@ UserSchema.methods.genAccessToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SEC, { expiresIn: '15m' });
 };
 
-UserSchema.methods.genRefreshToken = function () {
-  return jwt.sign({ id: this._id }, process.env.REFRESH_SEC, { expiresIn: '24h' });
+UserSchema.methods.genRefreshToken = function (rememberMe = false) {
+  return jwt.sign({ id: this._id }, process.env.REFRESH_SEC, { expiresIn: rememberMe ? '30d' : '24h' });
 };
 
 const User = mongoose.model('User', UserSchema);

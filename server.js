@@ -5,6 +5,7 @@ import connectToDB from './db.js';
 import helloRoutes from './routes/hello.js';
 import authRoutes from './routes/auth.js';
 import siteRoutes from './routes/sites.js';
+import noteRoutes from './routes/notes.js';
 dotenv.config();
 
 const app = express();
@@ -38,6 +39,7 @@ app.all('*', function (req, res, next) {
 app.use('/api/hello', helloRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/sites', siteRoutes);
+app.use('/api/notes', noteRoutes);
 
 app.get('/', (req, res) => {
   res.send('You are lost ;)');
