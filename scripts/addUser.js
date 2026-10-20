@@ -5,10 +5,10 @@ import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 import User from '../models/User.js';
 
-const EMAIL = 'admin@edgeauto.com';
+const EMAIL = 'bnatiello@edgeautomationsolutions.com';
 const PASSWORD = 'Edge2094!@';
-const NAME = 'Admin User';
-const ROLE = 'admin'; // 'admin' | 'technician'
+const NAME = 'Brandon Natiello';
+const ROLE = 'Technical Service Manager'; // 'admin' | 'technician'
 
 await mongoose.connect(process.env.DB_URL);
 

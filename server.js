@@ -14,19 +14,18 @@ app.use(express.json());
 
 await connectToDB();
 
-const corsData = {
-  origin: [process.env.CLIENT_URL],
-  default: process.env.CLIENT_URL,
-};
+const allowedOrigins = process.env.CLIENT_URL
+  ? [process.env.CLIENT_URL.toLowerCase()]
+  : [];
 
 app.all('*', function (req, res, next) {
   const getOrigin = req.header('origin');
 
   if (getOrigin) {
-    const origin = corsData.origin.includes(getOrigin.toLowerCase())
+    const origin = allowedOrigins.includes(getOrigin.toLowerCase())
       ? req.headers.origin
-      : corsData.default;
-    res.header('Access-Control-Allow-Origin', origin);
+      : null;
+    if (origin) res.header('Access-Control-Allow-Origin', origin);
     res.header(
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept, Authorization'
